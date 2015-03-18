@@ -45,12 +45,6 @@ public class GiocatoreUno extends Activity {
             maxBounce = getIntent().getExtras().getInt("savedInt");
             maxBounceTextView.setText("" + maxBounce);
             currentBounceTextView.setText("" + 0);
-        } else {
-            maxBounceTextView.setText("" + maxBounce);
-            maxBounceTextView.setText("" + maxBounce);
-            currentBounce = getIntent().getExtras().getInt("currentBounce");
-            currentBounce++;
-            currentBounceTextView.setText("" + (currentBounce));
         }
 
         if (checkBounceLimit()) {
@@ -62,7 +56,6 @@ public class GiocatoreUno extends Activity {
                 }
             });
         } else {
-
             skipToPlayerTwoButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -81,14 +74,24 @@ public class GiocatoreUno extends Activity {
         } else {
             return false;
         }
-
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        currentBounce = data.getExtras().getInt("currentBounce2");
+        currentBounce = data.getExtras().getInt("currentBounce");
         currentBounce++;
         currentBounceTextView.setText("" + currentBounce);
+        if (checkBounceLimit()) {
+            skipToPlayerTwoButton.setText(R.string.returnToHomeButton);
+            skipToPlayerTwoButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent finish = new Intent(GiocatoreUno.this, Home.class);
+                    finish.putExtra(CURRENT_BOUNCE, currentBounce);
+                    startActivity(finish);
+                }
+            });
+        }
     }
 
 

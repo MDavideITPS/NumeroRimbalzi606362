@@ -15,7 +15,7 @@ import org.w3c.dom.Text;
 
 public class GiocatoreDue extends Activity {
 
-    private static final String CURRENT_BOUNCE_2 = "currentBounce2";
+    private static final String CURRENT_BOUNCE = "currentBounce";
 
     private TextView maxBounceTextView;
     private TextView currentBounceTextView;
@@ -41,18 +41,38 @@ public class GiocatoreDue extends Activity {
         currentBounce++;
         currentBounceTextView.setText("" + currentBounce);
 
-        skipToPlayerOneButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        if (!checkBounceLimit()) {
+            skipToPlayerOneButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finish();
+                }
+            });
+        } else {
+            skipToPlayerOneButton.setText(R.string.returnToHomeButton);
+            skipToPlayerOneButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent finish = new Intent(GiocatoreDue.this, Home.class);
+                    finish.putExtra(CURRENT_BOUNCE, currentBounce);
+                    startActivity(finish);
+                }
+            });
+        }
+    }
+
+    private boolean checkBounceLimit() {
+        if (maxBounce == currentBounce) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
     public void finish() {
         Intent playerOne = new Intent();
-        playerOne.putExtra(CURRENT_BOUNCE_2, currentBounce);
+        playerOne.putExtra(CURRENT_BOUNCE, currentBounce);
         playerOne.putExtra("maxBounce", maxBounce);
         setResult(RESULT_OK, playerOne);
         super.finish();

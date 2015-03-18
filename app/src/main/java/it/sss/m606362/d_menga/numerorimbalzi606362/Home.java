@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -18,6 +19,7 @@ public class Home extends Activity {
 
     private Button startButton;
     private EditText maxBounceTextEdit;
+    private TextView bounceTextEdit;
     private int maxBounce;
 
 
@@ -28,6 +30,11 @@ public class Home extends Activity {
 
         maxBounceTextEdit = (EditText) findViewById(R.id.maxPassaggiTextEdit);
         startButton = (Button) findViewById(R.id.startButton);
+        bounceTextEdit = (TextView) findViewById(R.id.risultatoTextView);
+
+        if (getIntent().hasExtra("currentBounce")) {
+            bounceTextEdit.setText("" + getIntent().getExtras().getInt("currentBounce"));
+        }
 
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
