@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">NumeroRimbalzi606362</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_giocatore_uno">GiocatoreUno</string>
+    <string name="title_activity_giocatore_due">GiocatoreDue</string>
+    <string name="appNameLabel">NumeroRimbalzi 606362</string>
+    <string name="startButton">Inizia</string>
+    <string name="playerOneActivityLabel">Giocatore Uno</string>
+    <string name="playerTwoActivityLabel">Giocatore Due</string>
+    <string name="skipToPlayerTwoButton">Passa al Giocatore Due</string>
+    <string name="skipToPlayerOneButton">Passa al Giocatore Uno</string>
+    <string name="returnToHomeButton">Ritorna alla Home</string>
+    <string name="maxBounceError">Errore, numero di rimbalzi non valido</string>
+    <string name="maxBounceTextEditEmpty">Errore, inserisci un valore nel campo di testo</string>
+</resources>
