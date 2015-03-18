@@ -33,7 +33,7 @@ public class Home extends Activity {
             @Override
             public void onClick(View v) {
                 Intent start = new Intent(Home.this, GiocatoreUno.class);
-                if(maxBounceTextEdit.getText().toString().isEmpty()) {
+                if (maxBounceTextEdit.getText().toString().isEmpty()) {
                     Toast.makeText(Home.this, R.string.maxBounceTextEditEmpty, Toast.LENGTH_SHORT).show();
                 } else {
                     maxBounce = Integer.parseInt(maxBounceTextEdit.getText().toString());
@@ -46,35 +46,11 @@ public class Home extends Activity {
                 }
             }
         });
-
-
-
-
-
-//        maxBounceTextEdit = (EditText) findViewById(R.id.maxPassaggiTextEdit);
-//        startButton = (Button) findViewById(R.id.startButton);
-//        startButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent start = new Intent(Home.this, GiocatoreUno.class);
-//                if(maxBounceTextEdit.getText().toString().isEmpty()) {
-//                    Toast.makeText(Home.this, R.string.maxBounceTextEditEmpty, Toast.LENGTH_SHORT).show();
-//                } else {
-//                    maxBounce = Integer.parseInt(maxBounceTextEdit.getText().toString());
-//                    if (maxBounce <= 0) {
-//                        Toast.makeText(Home.this, R.string.maxBounceError, Toast.LENGTH_SHORT).show();
-//                    } else {
-//                        start.putExtra("savedLong", maxBounce);
-//                        startActivity(start);
-//                    }
-//                }
-//            }
-//        });
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState){
-        outState.putInt(MAX_BOUNCE,maxBounce);
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putInt(MAX_BOUNCE, maxBounce);
         super.onSaveInstanceState(outState);
     }
 
