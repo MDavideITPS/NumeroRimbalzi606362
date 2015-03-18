@@ -15,6 +15,8 @@ import org.w3c.dom.Text;
 
 public class GiocatoreDue extends Activity {
 
+    private static final String CURRENT_BOUNCE_2 = "currentBounce2";
+
     private TextView maxBounceTextView;
     private TextView currentBounceTextView;
     private Button skipToPlayerOneButton;
@@ -29,38 +31,32 @@ public class GiocatoreDue extends Activity {
         setContentView(R.layout.activity_giocatore_due);
 
 
-//        maxBounceTextView = (TextView) findViewById(R.id.rimbalziMaxTextView2);
-//        currentBounceTextView = (TextView) findViewById(R.id.rimbalziTextView2);
-//        maxBounce =(int) getIntent().getExtras().get("maxBounce");
-//        currentBounce = (int) getIntent().getExtras().get("currentBounce");
-//        maxBounceTextView.setText("" + maxBounce);
-//        currentBounce++;
-//        currentBounceTextView.setText("" + currentBounce);
-//
-//        skipToPlayerOneButton = (Button) findViewById(R.id.passaGiocatoreUnoButton);
-//        skipToPlayerOneButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if(!checkBounceLimit()) {
-//                    Intent playerOne = new Intent(GiocatoreDue.this, GiocatoreUno.class);
-//                    playerOne.putExtra("currentBounce",currentBounce);
-//                    playerOne.putExtra("maxBounce",maxBounce);
-//                    startActivity(playerOne);
-//                } else {
-//                    Intent finish = new Intent(GiocatoreDue.this, Home.class);
-//                    startActivity(finish);
-//                }
-//            }
-//        });
+        maxBounceTextView = (TextView) findViewById(R.id.rimbalziMaxTextView2);
+        currentBounceTextView = (TextView) findViewById(R.id.rimbalziTextView2);
+        skipToPlayerOneButton = (Button) findViewById(R.id.passaGiocatoreUnoButton);
+
+        maxBounce = getIntent().getExtras().getInt("maxBounce");
+        currentBounce = getIntent().getExtras().getInt("currentBounce");
+        maxBounceTextView.setText("" + maxBounce);
+        currentBounce++;
+        currentBounceTextView.setText("" + currentBounce);
+
+        skipToPlayerOneButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
-//    private boolean checkBounceLimit() {
-//        if(currentBounce == maxBounce)
-//            return true;
-//        else
-//            return false;
-//    }
-
+    @Override
+    public void finish() {
+        Intent playerOne = new Intent();
+        playerOne.putExtra(CURRENT_BOUNCE_2, currentBounce);
+        playerOne.putExtra("maxBounce", maxBounce);
+        setResult(RESULT_OK, playerOne);
+        super.finish();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
