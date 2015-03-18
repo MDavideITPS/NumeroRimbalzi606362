@@ -1,17 +1,16 @@
 <resources>
-    <string name="app_name">NumeroRimbalzi606362</string>
+    <string name="app_name">BounceNumber606362</string>
 
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_giocatore_uno">GiocatoreUno</string>
-    <string name="title_activity_giocatore_due">GiocatoreDue</string>
-    <string name="appNameLabel">NumeroRimbalzi 606362</string>
-    <string name="startButton">Inizia</string>
-    <string name="playerOneActivityLabel">Giocatore Uno</string>
-    <string name="playerTwoActivityLabel">Giocatore Due</string>
-    <string name="skipToPlayerTwoButton">Passa al Giocatore Due</string>
-    <string name="skipToPlayerOneButton">Passa al Giocatore Uno</string>
-    <string name="returnToHomeButton">Ritorna alla Home</string>
-    <string name="maxBounceError">Errore, numero di rimbalzi non valido</string>
-    <string name="maxBounceTextEditEmpty">Errore, inserisci un valore nel campo di testo</string>
+    <string name="title_activity_giocatore_uno">PlayerOne</string>
+    <string name="title_activity_giocatore_due">PlayerTwo</string>
+    <string name="appNameLabel">BounceNumber 606362</string>
+    <string name="startButton">Start</string>
+    <string name="playerOneActivityLabel">Player One</string>
+    <string name="playerTwoActivityLabel">Player Two</string>
+    <string name="skipToPlayerTwoButton">Bounce to Player Two</string>
+    <string name="skipToPlayerOneButton">Bounce to Player One</string>
+    <string name="returnToHomeButton">Back to Home</string>
+    <string name="maxBounceError">Error, bounce number not allowed</string>
+    <string name="maxBounceTextEditEmpty">Error,insert a valid bounce number</string>
 </resources>
