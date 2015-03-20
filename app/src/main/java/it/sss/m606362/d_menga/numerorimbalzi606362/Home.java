@@ -14,9 +14,6 @@ import android.widget.Toast;
 
 public class Home extends Activity {
 
-    private static final String MAX_BOUNCE = "maxBounce";
-    private static final String SAVED_INT = "savedInt";
-
     private Button startButton;
     private EditText maxBounceTextEdit;
     private TextView bounceTextEdit;
@@ -32,8 +29,8 @@ public class Home extends Activity {
         startButton = (Button) findViewById(R.id.startButton);
         bounceTextEdit = (TextView) findViewById(R.id.risultatoTextView);
 
-        if (getIntent().hasExtra("currentBounce")) {
-            bounceTextEdit.setText("" + getIntent().getExtras().getInt("currentBounce"));
+        if (getIntent().hasExtra(Code.CURRENT_BOUNCE_STRING)) {
+            bounceTextEdit.setText("" + getIntent().getExtras().getInt(Code.CURRENT_BOUNCE_STRING));
         }
 
         startButton.setOnClickListener(new View.OnClickListener() {
@@ -47,7 +44,7 @@ public class Home extends Activity {
                     if (maxBounce <= 0) {
                         Toast.makeText(Home.this, R.string.maxBounceError, Toast.LENGTH_SHORT).show();
                     } else {
-                        start.putExtra(SAVED_INT, maxBounce);
+                        start.putExtra(Code.SAVED_INT, maxBounce);
                         startActivity(start);
                     }
                 }
@@ -57,7 +54,7 @@ public class Home extends Activity {
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        outState.putInt(MAX_BOUNCE, maxBounce);
+        outState.putInt(Code.MAX_BOUNCE_STRING, maxBounce);
         super.onSaveInstanceState(outState);
     }
 

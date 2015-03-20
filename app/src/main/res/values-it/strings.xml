@@ -14,4 +14,5 @@
     <string name="returnToHomeButton">Ritorna alla Home</string>
     <string name="maxBounceError">Errore, numero di rimbalzi non valido</string>
     <string name="maxBounceTextEditEmpty">Errore, inserisci un valore nel campo di testo</string>
+    <string name="gameOverMessageToast">Gioco Terminato!</string>
 </resources>

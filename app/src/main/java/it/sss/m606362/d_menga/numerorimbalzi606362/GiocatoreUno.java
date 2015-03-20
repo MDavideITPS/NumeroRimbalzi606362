@@ -2,9 +2,7 @@ package it.sss.m606362.d_menga.numerorimbalzi606362;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,18 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-/**
- * PROBLEMI: lo stato dell'activity GiocatoreUno è salvato. Tuttavia nel momento in cui creo l'intent nell'activity GiocatoreDue
- * mettendo tutte le variabili da passargli e startando l'activity GiocatoreUno, questa viene ricreata(viene creata un'altra
- * istanza diversa dalla precendente.
- */
-
 public class GiocatoreUno extends Activity {
-
-    private static final String MAX_BOUNCE = "maxBounce";
-    private static final String CURRENT_BOUNCE = "currentBounce";
-    private static int REQUEST_CODE;
-
 
     private TextView maxBounceTextView;
     private TextView currentBounceTextView;
@@ -41,11 +28,9 @@ public class GiocatoreUno extends Activity {
         currentBounceTextView = (TextView) findViewById(R.id.rimbalziTextView1);
         skipToPlayerTwoButton = (Button) findViewById(R.id.passaGiocatoreDueButton);
 
-        if (savedInstanceState == null) {
-            maxBounce = getIntent().getExtras().getInt("savedInt");
-            maxBounceTextView.setText("" + maxBounce);
-            currentBounceTextView.setText("" + 0);
-        }
+        maxBounce = getIntent().getExtras().getInt(Code.SAVED_INT);
+        maxBounceTextView.setText("" + maxBounce);
+        currentBounceTextView.setText("" + 0);
 
         if (checkBounceLimit()) {
             skipToPlayerTwoButton.setText(R.string.returnToHomeButton);
@@ -60,9 +45,9 @@ public class GiocatoreUno extends Activity {
                 @Override
                 public void onClick(View v) {
                     Intent playerTwo = new Intent(GiocatoreUno.this, GiocatoreDue.class);
-                    playerTwo.putExtra(MAX_BOUNCE, maxBounce);
-                    playerTwo.putExtra(CURRENT_BOUNCE, currentBounce);
-                    startActivityForResult(playerTwo, REQUEST_CODE);
+                    playerTwo.putExtra(Code.MAX_BOUNCE_STRING, maxBounce);
+                    playerTwo.putExtra(Code.CURRENT_BOUNCE_STRING, currentBounce);
+                    startActivityForResult(playerTwo, 0);
                 }
             });
         }
@@ -78,26 +63,28 @@ public class GiocatoreUno extends Activity {
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        currentBounce = data.getExtras().getInt("currentBounce");
-        currentBounce++;
-        currentBounceTextView.setText("" + currentBounce);
-        if (checkBounceLimit()) {
-            skipToPlayerTwoButton.setText(R.string.returnToHomeButton);
-            skipToPlayerTwoButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent finish = new Intent(GiocatoreUno.this, Home.class);
-                    finish.putExtra(CURRENT_BOUNCE, currentBounce);
-                    startActivity(finish);
-                }
-            });
+        if (resultCode == Code.BOUNCE_DONE) {
+            currentBounce = data.getExtras().getInt(Code.CURRENT_BOUNCE_STRING);
+            currentBounce++;
+            currentBounceTextView.setText("" + currentBounce);
+            if (checkBounceLimit()) {
+                Toast.makeText(this, R.string.gameOverMessageToast, Toast.LENGTH_SHORT).show();
+                skipToPlayerTwoButton.setText(R.string.returnToHomeButton);
+                skipToPlayerTwoButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent finish = new Intent(GiocatoreUno.this, Home.class);
+                        finish.putExtra(Code.CURRENT_BOUNCE_STRING, currentBounce);
+                        startActivity(finish);
+                    }
+                });
+            }
         }
     }
 
-
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        outState.putInt(MAX_BOUNCE,maxBounce);
+        outState.putInt(Code.MAX_BOUNCE_STRING, maxBounce);
         super.onSaveInstanceState(outState);
     }
 

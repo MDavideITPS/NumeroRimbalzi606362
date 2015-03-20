@@ -2,20 +2,15 @@ package it.sss.m606362.d_menga.numerorimbalzi606362;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
-
+import android.widget.Toast;
 
 public class GiocatoreDue extends Activity {
-
-    private static final String CURRENT_BOUNCE = "currentBounce";
 
     private TextView maxBounceTextView;
     private TextView currentBounceTextView;
@@ -30,13 +25,12 @@ public class GiocatoreDue extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_giocatore_due);
 
-
         maxBounceTextView = (TextView) findViewById(R.id.rimbalziMaxTextView2);
         currentBounceTextView = (TextView) findViewById(R.id.rimbalziTextView2);
         skipToPlayerOneButton = (Button) findViewById(R.id.passaGiocatoreUnoButton);
 
-        maxBounce = getIntent().getExtras().getInt("maxBounce");
-        currentBounce = getIntent().getExtras().getInt("currentBounce");
+        maxBounce = getIntent().getExtras().getInt(Code.MAX_BOUNCE_STRING);
+        currentBounce = getIntent().getExtras().getInt(Code.CURRENT_BOUNCE_STRING);
         maxBounceTextView.setText("" + maxBounce);
         currentBounce++;
         currentBounceTextView.setText("" + currentBounce);
@@ -45,20 +39,29 @@ public class GiocatoreDue extends Activity {
             skipToPlayerOneButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    Intent playerOne = new Intent();
+                    playerOne.putExtra(Code.CURRENT_BOUNCE_STRING, currentBounce);
+                    setResult(Code.BOUNCE_DONE, playerOne);
                     finish();
                 }
             });
         } else {
+            Toast.makeText(this, R.string.gameOverMessageToast, Toast.LENGTH_SHORT).show();
             skipToPlayerOneButton.setText(R.string.returnToHomeButton);
             skipToPlayerOneButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent finish = new Intent(GiocatoreDue.this, Home.class);
-                    finish.putExtra(CURRENT_BOUNCE, currentBounce);
+                    finish.putExtra(Code.CURRENT_BOUNCE_STRING, currentBounce);
                     startActivity(finish);
                 }
             });
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 
     private boolean checkBounceLimit() {
@@ -67,15 +70,6 @@ public class GiocatoreDue extends Activity {
         } else {
             return false;
         }
-    }
-
-    @Override
-    public void finish() {
-        Intent playerOne = new Intent();
-        playerOne.putExtra(CURRENT_BOUNCE, currentBounce);
-        playerOne.putExtra("maxBounce", maxBounce);
-        setResult(RESULT_OK, playerOne);
-        super.finish();
     }
 
     @Override

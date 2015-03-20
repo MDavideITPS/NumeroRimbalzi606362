@@ -13,4 +13,5 @@
     <string name="returnToHomeButton">Back to Home</string>
     <string name="maxBounceError">Error, bounce number not allowed</string>
     <string name="maxBounceTextEditEmpty">Error,insert a valid bounce number</string>
+    <string name="gameOverMessageToast">Game Over!</string>
 </resources>
